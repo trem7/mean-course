@@ -30,6 +30,7 @@ router.post("/signup", (req, res, next) => {
 
 // login route
 router.post("/login", (req, res, next) => {
+  let fetchedUser;
   User.findOne({ email: req.body.email })
     .then(user => {
       if(!user) {
@@ -37,6 +38,7 @@ router.post("/login", (req, res, next) => {
           message: "Auth failed"
         });
       }
+      fetchedUser = user;
       return bcrypt.compare(req.body.password, user.password);
     })
     .then(result => {
@@ -50,12 +52,15 @@ router.post("/login", (req, res, next) => {
       // third object is to configure
       const token = jwt.sign(
         // email and user id from database
-        { email: user.email, userId: user._id },
+        { email: fetchedUser.email, userId: fetchedUser._id },
         // provide a secret used to hash
         'secret_this_should_be_longer',
         // configuration
         { expiresIn: "1h" }
         );
+        res.status(200).json({
+          token: token
+        });
     })
     .catch(err => {
       return res.status(401).json({
