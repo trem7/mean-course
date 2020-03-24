@@ -6,6 +6,7 @@ const User = require("../models/user");
 
 const router = express.Router();
 
+// signup route
 router.post("/signup", (req, res, next) => {
   bcrypt.hash(req.body.password, 10)
     .then(hash => {
@@ -48,8 +49,6 @@ router.post("/login", (req, res, next) => {
         });
       }
       // create new token based on input data
-
-      // third object is to configure
       const token = jwt.sign(
         // email and user id from database
         { email: fetchedUser.email, userId: fetchedUser._id },
