@@ -18,6 +18,6 @@ export class LoginComponent {
     }
     this.isLoading = true;
     this.authService.login(form.value.email, form.value.password);
-    console.log(form.value)
+    //console.log(form.value)
   }
 }
