@@ -48,7 +48,7 @@ exports.userLogin = (req, res, next) => {
         // email and user id from database
         { email: fetchedUser.email, userId: fetchedUser._id },
         // provide a secret used to hash
-        'secret_this_should_be_longer',
+        process.env.JWT_KEY,
         // configuration
         { expiresIn: "1h" }
         );

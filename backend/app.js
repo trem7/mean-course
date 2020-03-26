@@ -8,7 +8,11 @@ const userRoutes = require("./routes/user");
 
 const app = express();
 
-mongoose.connect("mongodb+srv://adam:yOH36auoHkefwEzI@cluster0-jv3bi.mongodb.net/node-angular?retryWrites=true&w=majority", { useNewUrlParser: true })
+mongoose
+  .connect(
+    "mongodb+srv://adam:" +
+      process.env.MONGO_ATLAS_PW +
+      "@cluster0-jv3bi.mongodb.net/node-angular?retryWrites=true&w=majority", { useNewUrlParser: true })
   .then(() => {
     console.log("Connected to database!");
   })
